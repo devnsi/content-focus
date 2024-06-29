@@ -1,0 +1,28 @@
+:root {
+    --bg: #ffffff;
+    --text: #15141a;
+    --accent: #0161e0;
+    --accent-text: #e0e0e6;
+    --accent-hover: #0090ed;
+    --accent-bg: #f0f0f4;
+}
+
+button.secondary {
+    background-color: #cfcfd8;
+    border-color: #f9f9fb;
+    color: var(--text);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #1c1b22;
+        --text: #cfcfd8;
+        --accent-text: #fbfbfe;
+        --accent-bg: #42414d;
+    }
+
+    button.secondary {
+        background-color: #3a3944;
+        border-color: #52525e;
+    }
+}

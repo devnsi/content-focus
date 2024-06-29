@@ -4,42 +4,65 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Focus</title>
+  <title>Content Focus</title>
   <link rel="icon" type="image/png" href="../icons/icons8-focus-64.png" sizes="64x64">
   <link rel="icon" type="image/png" href="../icons/icons8-focus-32.png" sizes="32x32">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-green.css">
+  <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+  <link rel="stylesheet" href="options.css">
 </head>
 
 <body>
-  <header class="w3-container w3-theme w3-padding">
-    <h1 class="w3-margin w3-xxxlarge w3-text">Youtube Workout</h1>
+  <header>
+    <h1>Content Focus</h1>
   </header>
 
-  <!-- Options. -->
-  <div class="w3-card-4 w3-margin" id="container-options">
-    <div class="w3-container w3-theme-d3">
-      <h2 class="w3-xxlarge">Options</h2>
-    </div>
-
-    <div class="w3-container w3-padding">
-      <form>
+  <main>
+    <h2>Configuration</h2>
+    <p>
+      Websites are made of many different elements (texts, headlines, blocks, ...).
+      These elements are typically deeply nested.
+      Their exact composition can be inspected in the website source code.
+    </p>
+    <p>
+      Sometimes elements are marked with unique identifiers.
+      Often times identifying the exact element can be tricky.
+      Easiest way to specify them is by using <a href="https://en.wikipedia.org/wiki/CSS#Selector">CSS selectors</a>.
+    </p>
+    <p>
+      Use these selectors in the configuration below.
+    </p>
+    <blockquote>
+      <p>CSS selectors are like the universe's secret language, hidden in plain sight for those who dare to unravel its
+        mysteries.</p>
+      <p><cite>- Albert Einstein (if he were a web developer)</cite></p>
+    </blockquote>
+    <form>
+      <div>
         <label for="focus">Focus element</label>
-        <input type="text" id="focus">
-        <button type="submit">Save</button>
-      </form>
-    </div>
-  </div>
+        <input type="text" id="focus" placeholder="Show only this element...">
+        <div>
+          <label for="matchers">Matchers</label>
+          <textarea id="matchers" rows="3" placeholder="Wait until these elements are loaded..."></textarea>
+        </div>
+        <div>
+          <label for="exclusions">Exclusions</label>
+          <textarea id="exclusions" rows="3" placeholder="Keep showing these elements..."></textarea>
+        </div>
+        <div>
+          <label for="click">Click</label>
+          <textarea id="click" rows="3" placeholder="Click automatically on these elements..."></textarea>
+        </div>
+        <div>
+          <button type="submit">Save</button>
+          <button type="reset" class="secondary">Reset</button>
+        </div>
+    </form>
+  </main>
 
-  <!-- About. -->
-  <div class="w3-card-4 w3-margin">
-    <div class="w3-container w3-theme-d3">
-      <h2 class="w3-xxlarge">About</h2>
-    </div>
-    <div class="w3-container w3-padding">
-      <p>Icons by <a href="https://icons8.com">icons8.com</a>.</p>
-    </div>
-  </div>
+  <footer>
+    <h2>About</h2>
+    <p>Icons by <a href="https://icons8.com">icons8.com</a>.</p>
+  </footer>
 
   <script src="options.js"></script>
 </body>

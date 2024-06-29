@@ -1,11 +1,10 @@
 console.log("[Content Focus] Running background script.")
 browser.runtime.onInstalled.addListener(initStore);
-const alwaysReload = false
 
-function initStore() {
-    console.log('[Content Focus] Initialize store.');
+function initStore(details) {
+    console.log('[Content Focus] Initialize store.', details);
     browser.storage.local.get().then((stored) => {
-        if (stored && Object.keys(stored).length && !alwaysReload) {
+        if (stored && Object.keys(stored).length && !details.temporary) {
             console.log('[Content Focus] Use existing options', stored);
         } else {
             const opts = defaultOptions();

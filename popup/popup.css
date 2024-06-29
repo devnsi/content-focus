@@ -1,0 +1,36 @@
+:root {
+    --bg: #f0f0f4;
+    --text: #15141a;
+    --accent: #0161e0;
+    --accent-text: #e0e0e6;
+    --accent-hover: #0090ed;
+}
+
+body {
+    min-width: 10em;
+}
+
+p {
+    white-space: nowrap;
+    text-align: center;
+    margin: 0.5rem 0;
+}
+
+button.secondary {
+    background-color: #cfcfd8;
+    border-color: #f9f9fb;
+    color: var(--text);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #1c1b22;
+        --text: #cfcfd8;
+        --accent-text: #fbfbfe;
+    }
+
+    button.secondary {
+        background-color: #3a3944;
+        border-color: #52525e;
+    }
+}

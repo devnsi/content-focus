@@ -38,18 +38,36 @@
   },
   "action": {
     "default_icon": {
-      "32": "icons/icons8-focus-32.png",
-      "64": "icons/icons8-focus-64.png"
+      "32": "icons/icons8-focus-white-32.png",
+      "64": "icons/icons8-focus-white-64.png"
     },
     "default_title": "Content Focus",
-    "default_popup": "popup/popup.html"
+    "default_popup": "popup/popup.html",
+    "theme_icons": [
+      {
+        "light": "icons/icons8-focus-white-32.png",
+        "dark": "icons/icons8-focus-32.png",
+        "size": 32
+      },
+      {
+        "light": "icons/icons8-focus-white-64.png",
+        "dark": "icons/icons8-focus-64.png",
+        "size": 64
+      }
+    ]
   },
   "commands": {
     "toggle": {
+      "description": "Toggle focus",
       "suggested_key": {
-        "default": "Ctrl+Alt+T"
-      },
-      "description": "Toggle focus"
+        "default": "Shift+Alt+T"
+      }
+    },
+    "settings": {
+      "description": "Open settings",
+      "suggested_key": {
+        "default": "Shift+Alt+S"
+      }
     }
   },
   "browser_specific_settings": {
