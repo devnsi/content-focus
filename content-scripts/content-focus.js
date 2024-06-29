@@ -6,14 +6,14 @@ async function initializeContentFocus() {
 
 async function executeAction(action) {
     const elements = await opts.focusElements()
-    walkToRoot(elements, action);
+    walkPath(elements, action);
 }
 
 async function executeActionOnElements(elements, action) {
-    walkToRoot(elements, action);
+    walkPath(elements, action);
 }
 
-function walkToRoot(elements, actionOnSiblings) {
+function walkPath(elements, actionOnSiblings) {
     const keepers = elements.map(e => determinePath(e)).flat();
     elements.forEach(e => actionAlongPath(e, keepers, actionOnSiblings));
 }
@@ -46,16 +46,25 @@ function hide(_, element) {
     element.style.display = "none";
 }
 
-function show(_, element) {
+function show() {
     document.body.dataset.contentFocusState = ""
-    if (element.dataset.contentFocusTouched) {
-        element.style.display = "revert";
-    }
+    document.querySelectorAll('[data-content-focus-touched="true"]').forEach(e => {
+        e.style.display = "revert"
+    });
 }
 
 function toggle() {
     const isHidden = document.body.dataset.contentFocusState == "hidden"
-    return isHidden ? show : hide
+    if (isHidden) {
+        show();
+    } else {
+        executeAction(hide)
+    }
+}
+
+async function resetContentFocus() {
+    show()
+    await initializeContentFocus();
 }
 
 initializeContentFocus();

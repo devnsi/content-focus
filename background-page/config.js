@@ -19,8 +19,11 @@ function defaultConfiguration() {
     return {
         ".*stackoverflow.*": {
             focus: ["#question", "#answers"],
-            click: [],
+            click: undefined,
             context: ['#close']
+        },
+        "https://accounts.google.com/gsi/iframe/select": {
+            click: ['#close']
         }
     }
 }

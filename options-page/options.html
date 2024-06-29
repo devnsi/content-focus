@@ -9,6 +9,7 @@
   <link rel="icon" type="image/png" href="../icons/icons8-focus-32.png" sizes="32x32">
   <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
   <link rel="stylesheet" href="options.css">
+  <link rel="stylesheet" href="riple.css">
 </head>
 
 <body>
@@ -26,40 +27,48 @@
     <p>
       Sometimes elements are marked with unique identifiers.
       Often times identifying the exact element can be tricky.
-      Easiest way to specify them is by using <a href="https://en.wikipedia.org/wiki/CSS#Selector">CSS selectors</a>.
-    </p>
-    <p>
-      Use these selectors in the configuration below.
+      Specify them using <a href="https://en.wikipedia.org/wiki/CSS#Selector" tabindex="-1">CSS selectors</a>.
     </p>
     <blockquote>
       <p>CSS selectors are like the universe's secret language, hidden in plain sight for those who dare to unravel its
         mysteries.</p>
       <p><cite>- Albert Einstein (if he were a web developer)</cite></p>
     </blockquote>
+    <p>
+      Each line represents the configuration for a website.
+      Specify the website using its' URL (e.g. https://www.mozilla.org).
+      <abbr title="Regular Expression">RegEx</abbr> can be used match the URL.
+      Seperate the URL with a semi-colon <mark>;</mark> from the following selectors.
+      Seperate the selectors likewise with a semi-colon <mark>;</mark>.
+    </p>
+    <p>
+      Pattern: <code>url;selector1;selector2</code><br />
+      Example: <code>https://(.*)\.mozilla\.org;main#content;#nav-footer</code>
+    </p>
     <form>
       <div>
         <div>
           <label for="focus">Focus</label>
-          <textarea id="focus" rows="3" placeholder="Show only this elements..."></textarea>
+          <textarea id="focus" rows="3" tabindex="1" placeholder="Show only this elements..."></textarea>
         </div>
         <div>
           <label for="click">Click</label>
-          <textarea id="click" rows="3" placeholder="Click automatically on these elements..."></textarea>
+          <textarea id="click" rows="3" tabindex="2" placeholder="Click automatically on these elements..."></textarea>
         </div>
         <div>
           <label for="context">Context</label>
-          <textarea id="context" rows="3" placeholder="Fix event handlers for context menu..."></textarea>
+          <textarea id="context" rows="3" tabindex="3" placeholder="Fix event handlers for context menu..."></textarea>
         </div>
         <div>
-          <button type="submit">Save</button>
-          <button type="reset" class="secondary">Reset</button>
+          <button type="submit" class="ripple" tabindex="4">Save</button>
+          <button type="reset" class="ripple secondary" tabindex="5">Reset</button>
         </div>
     </form>
   </main>
 
   <footer>
     <h2>About</h2>
-    <p>Icons by <a href="https://icons8.com">icons8.com</a>.</p>
+    <p>Icons by <a href="https://icons8.com" tabindex="-1">icons8.com</a>.</p>
   </footer>
 
   <script src="options.js"></script>

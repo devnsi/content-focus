@@ -27,8 +27,8 @@ function textConfig(k, v, field) {
 async function saveOptions(e) {
     console.log("[Content Focus] Save options.");
     e.preventDefault();
-    const config = parseConfig()
-    await browser.storage.local.clear()
+    const config = parseConfig();
+    await browser.storage.local.clear();
     await browser.storage.local.set(config);
     displayOptions();
 }
@@ -46,18 +46,13 @@ function parse(string) {
         .split(/\r?\n/)
         .filter(line => line.length)
         .map(parseLine)
-        .filter(notEmptyLine)
 }
 
 function parseLine(line) {
     const split = line.split(";")
     const website = split[0];
     const selectors = split.slice(1);
-    return selectors.length ? ({ website, selectors }) : undefined;
-}
-
-function notEmptyLine(line) {
-    return line && line.selectors.filter(s => s).length;
+    return ({ website: website, selectors: selectors });
 }
 
 function insert(config, parsed, field) {

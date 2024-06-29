@@ -5,6 +5,8 @@
     --accent-text: #e0e0e6;
     --accent-hover: #0090ed;
     --accent-bg: #f0f0f4;
+    --marked: #f0f0f4;
+    --text-light: #5b5b66;
 }
 
 button.secondary {
@@ -19,6 +21,7 @@ button.secondary {
         --text: #cfcfd8;
         --accent-text: #fbfbfe;
         --accent-bg: #42414d;
+        --text-light: #ababab;
     }
 
     button.secondary {

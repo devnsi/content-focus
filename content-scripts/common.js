@@ -9,7 +9,7 @@ const opts = {
     current: async () => {
         return opts.currentStored ??= new Promise(async resolve => {
             const current = await opts.self();
-            const matches = Object.keys(current).filter(key => document.URL.match(key))
+            const matches = Object.keys(current).filter(matchesUrl)
             console.log("[Content Focus] Website has defined option keys", matches)
             resolve(matches.length ? current[matches[0]] : {})
         });
@@ -32,6 +32,10 @@ async function resolveSelectors(selectors) {
         console.log("[Content Focus]", "Resolve", selectors, "to", elements);
         resolve(elements)
     });
+}
+
+function matchesUrl(key) {
+    return document.URL.split("?")[0].match(key) // ignore query parameters to allow simpler url specs.
 }
 
 const readyRequests = {}
@@ -83,10 +87,15 @@ async function whenReady(elements) {
 })();
 
 browser.storage.onChanged.addListener((changes, area) => {
-    console.log("[Content Focus] On Storage Changed:", changes, area)
-    console.log("[Content Focus] Reset!")
-    opts.reset()
-    initializeAutoClicker();
-    initializeContentFocus(); // TODO but does not unhide!
-    initializeContextMenu();
+    const changeWebsites = Object.keys(changes)
+    const changeMatching = changeWebsites.filter(matchesUrl);
+    const currentChanged = changeMatching.length > 0
+    const relevantChanged = currentChanged && changes[changeMatching[0]].newValue
+    if (relevantChanged) {
+        console.log("[Content Focus] Reset!", changes)
+        opts.reset()
+        resetContentFocus();
+        initializeAutoClicker();
+        initializeContextMenu();
+    }
 });
