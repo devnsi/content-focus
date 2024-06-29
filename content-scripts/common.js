@@ -3,9 +3,9 @@ console.debug("[Content Focus] Running content script in", document.URL);
 /** Options caching resolved elements. */
 const opts = {
     self: async () => (await browser.storage.local.get()),
-    focusElements: async () => opts.focusElementsStored ??= resolveSelectors((await opts.current())?.focus ?? []),
-    clickElements: async () => opts.clickSelectorsStored ??= resolveSelectors((await opts.current())?.click ?? []),
-    eventElements: async () => opts.eventSelectorsStored ??= resolveSelectors((await opts.current())?.event ?? []),
+    focusElements: async () => opts.focusElementsStored ??= whenReady((await opts.current())?.focus ?? []),
+    clickElements: async () => opts.clickSelectorsStored ??= whenReady((await opts.current())?.click ?? []),
+    eventElements: async () => opts.eventSelectorsStored ??= whenReady((await opts.current())?.event ?? []),
     current: async () => {
         return opts.currentStored ??= new Promise(async resolve => {
             const current = await opts.self();
@@ -22,66 +22,52 @@ const opts = {
     }
 };
 
-async function resolveSelectors(selectors) {
-    return new Promise(async resolve => {
-        const elements = selectors.map(selector => {
-            const match = document.querySelector(selector);
-            if (!match) console.warn("[Content Focus]", selector, "could not be resolved!");
-            return match;
-        }).filter(e => e);
-        console.debug("[Content Focus]", "Resolve", selectors, "to", elements);
-        resolve(elements)
-    });
-}
-
 function matchesUrl(key) {
     return document.URL.split("?")[0].match(key) // ignore query parameters to allow simpler url specs.
 }
 
 const readyRequests = {}
-async function whenReady(elements) {
-    const key = toKey(elements) ?? ''
+async function whenReady(selectors) {
+    const key = selectors.join(";") ?? ''
     if (!readyRequests[key]) {
-        if (!elements.length) {
+        if (!selectors.length) {
             readyRequests[key] = new Promise(_ => { });
         } else {
-            console.debug('[Content Focus] Wait for all', elements);
+            console.debug('[Content Focus] Wait for all', selectors);
             readyRequests[key] = new Promise(observeUntilReady);
         }
     }
     return readyRequests[key]
 
-    function toKey(elements) {
-        return elements
-            .map(e => e.outerHTML)
-            .map(html => JSON.stringify(html))
-            .map(s => s.replaceAll(/\W/g, ''))
-            .join(";")
-    }
-
     function observeUntilReady(resolve) {
-        var isAlreadyReady = checkIfReady();
+        var elements = resolveSelectors();
+        var isAlreadyReady = allPresent(elements);
         if (isAlreadyReady) {
-            resolve();
+            resolve(elements);
             return;
         }
 
         var config = { attributes: false, childList: true, characterData: false, subtree: false };
         var callback = () => {
-            if (checkIfReady()) {
+            var elements = resolveSelectors()
+            if (allPresent(elements)) {
                 observer.disconnect();
-                resolve();
+                resolve(elements);
             }
         };
         var observer = new MutationObserver(callback);
         observer.observe(document.body, config);
     }
 
-    function checkIfReady() {
-        const isPresent = (e) => document.body.contains(e);
-        const isReady = elements.every(isPresent);
-        console.debug("[Content Focus] Check if", elements, "is ready:", isReady);
-        return isReady
+    function resolveSelectors() {
+        return selectors.map(s => document.querySelector(s)).filter(e => e);
+    }
+
+    function allPresent(elements) {
+        const allPresent = elements.length == selectors.length
+        if (allPresent) console.debug("[Content Focus] Resolved", selectors, "to", elements);
+        else console.debug("[Content Focus] Resolving", selectors, "to", elements, "still incomplete...");
+        return allPresent
     }
 }
 
@@ -90,7 +76,7 @@ async function whenReady(elements) {
     console.debug("[Content Focus] Options:", current)
 })();
 
-browser.storage.onChanged.addListener((changes, area) => {
+browser.storage.onChanged.addListener((changes, _) => {
     const changeWebsites = Object.keys(changes)
     const changeMatching = changeWebsites.filter(matchesUrl);
     const currentChanged = changeMatching.length > 0

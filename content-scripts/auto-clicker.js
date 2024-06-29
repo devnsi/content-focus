@@ -1,6 +1,5 @@
 async function initializeAutoClicker() {
     const elements = await opts.clickElements()
-    await whenReady(elements)
     await autoClick(elements)
 }
 

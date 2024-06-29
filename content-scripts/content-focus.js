@@ -1,7 +1,5 @@
-async function initializeContentFocus() {
-    const elements = await opts.focusElements();
-    await whenReady(elements);
-    hideElements(elements);
+function initializeContentFocus() {
+    hide()
 }
 
 async function hide() {

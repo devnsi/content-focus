@@ -1,6 +1,5 @@
 async function initializeEventCleanser() {
     const elements = await opts.eventElements()
-    await whenReady(elements)
     enableCleanser(elements)
 }
 
