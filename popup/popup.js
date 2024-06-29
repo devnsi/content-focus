@@ -1,14 +1,14 @@
 document
     .getElementById("toggle")
     .addEventListener("click", _ => {
-        console.log("[Content Focus] Listening for clicks on toggle.")
+        console.debug("[Content Focus] Listening for clicks on toggle.")
         sendMessageToTab("toggle")
     });
 
 document
     .getElementById("settings")
     .addEventListener("click", _ => {
-        console.log("[Content Focus] Listening for clicks on settings.")
+        console.debug("[Content Focus] Listening for clicks on settings.")
         sendMessageToBackground("settings")
     });
 

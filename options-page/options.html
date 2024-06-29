@@ -42,7 +42,7 @@
       Seperate the selectors likewise with a semi-colon <mark>;</mark>.
     </p>
     <p>
-      Pattern: <code>url;selector1;selector2</code><br />
+      Pattern: <code>url;selector1;selector2;...</code><br />
       Example: <code>https://(.*)\.mozilla\.org;main#content;#nav-footer</code>
     </p>
     <form>
@@ -56,8 +56,8 @@
           <textarea id="click" rows="3" tabindex="2" placeholder="Click automatically on these elements..."></textarea>
         </div>
         <div>
-          <label for="context">Context</label>
-          <textarea id="context" rows="3" tabindex="3" placeholder="Fix event handlers for context menu..."></textarea>
+          <label for="event">Event</label>
+          <textarea id="event" rows="3" tabindex="3" placeholder="Clean event listeners..."></textarea>
         </div>
         <div>
           <button type="submit" class="ripple" tabindex="4">Save</button>

@@ -11,7 +11,7 @@
     "preversion": "sh -c 'sed -i \"s,\\\"version\\\".*,\\\"version\\\": \\\"${npm_new_version}\\\"\\,,\" manifest.json'",
     "version": "git add manifest.json",
     "postversion": "npm run sign",
-    "sign": "env-cmd --expand-envs web-ext sign --api-key=$ADDONS_MOZILLA_APIKEY --api-secret=$ADDONS_MOZILLA_SECRET --use-submission-api --channel=unlisted"
+    "sign": "env-cmd --expand-envs web-ext sign --api-key=$ADDONS_MOZILLA_APIKEY --api-secret=$ADDONS_MOZILLA_SECRET --channel=unlisted"
   },
   "devDependencies": {
     "env-cmd": "^10.1.0",

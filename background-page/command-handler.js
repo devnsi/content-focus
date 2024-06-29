@@ -1,6 +1,6 @@
 /** Handle messages from the tabs. */
 browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    console.log("[Content Focus]", "Received message in background", message);
+    console.debug("[Content Focus]", "Received message in background", message);
     switch (message.action) {
         case "settings":
             browser.runtime.openOptionsPage();
@@ -12,7 +12,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 /** Handle commands from the browser (e.g. shortcuts). */
 browser.commands.onCommand.addListener((command) => {
-    console.log(`[Content Focus] Received command '${command}'.`);
+    console.debug(`[Content Focus] Received command '${command}'.`);
     switch (command) {
         case "toggle":
             sendMessageToTab("toggle");

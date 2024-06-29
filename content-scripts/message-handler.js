@@ -1,5 +1,5 @@
 browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    console.log("[Content Focus]", "Received message", message);
+    console.debug("[Content Focus]", "Received message", message);
     switch (message.action) {
         case "toggle":
             toggle();

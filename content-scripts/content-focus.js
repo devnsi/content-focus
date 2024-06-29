@@ -1,21 +1,20 @@
 async function initializeContentFocus() {
     const elements = await opts.focusElements();
-    await whenReady(elements)
-    await executeActionOnElements(elements, hide)
+    await whenReady(elements);
+    hideElements(elements);
 }
 
-async function executeAction(action) {
-    const elements = await opts.focusElements()
-    walkPath(elements, action);
+async function hide() {
+    const elements = await opts.focusElements();
+    hideElements(elements)
 }
 
-async function executeActionOnElements(elements, action) {
-    walkPath(elements, action);
-}
-
-function walkPath(elements, actionOnSiblings) {
-    const keepers = elements.map(e => determinePath(e)).flat();
-    elements.forEach(e => actionAlongPath(e, keepers, actionOnSiblings));
+function hideElements(elements) {
+    console.debug("[Content Focus] Hide elements besides", elements);
+    document.body.dataset.contentFocusState = "hidden";
+    const keep = elements.map(e => determinePath(e)).flat();
+    keep.forEach(e => e.style.display = "revert");
+    elements.forEach(e => hideAlongPath(e, keep));
 }
 
 function determinePath(element) {
@@ -28,43 +27,34 @@ function determinePath(element) {
     return path;
 }
 
-function actionAlongPath(element, unless, actionOnSiblings) {
+function hideAlongPath(element, keep) {
     let currentElement = element;
     while (currentElement !== document.body) {
         const parent = currentElement.parentNode;
-        const children = [...parent.children].filter(e => !unless.find(u => u == e));
+        const children = [...parent.children].filter(e => !keep.find(u => u == e));
         for (const element of children) {
-            actionOnSiblings(parent, element);
+            hideElement(element);
         }
         currentElement = parent;
     }
 }
 
-function hide(_, element) {
-    document.body.dataset.contentFocusState = "hidden"
-    element.dataset.contentFocusTouched = true;
-    element.style.display = "none";
-}
-
-function show() {
-    document.body.dataset.contentFocusState = ""
-    document.querySelectorAll('[data-content-focus-touched="true"]').forEach(e => {
-        e.style.display = "revert"
-    });
-}
-
-function toggle() {
-    const isHidden = document.body.dataset.contentFocusState == "hidden"
-    if (isHidden) {
-        show();
-    } else {
-        executeAction(hide)
+function hideElement(element) {
+    if (getComputedStyle(element).display != "none") {
+        element.dataset.contentFocusTouched = true;
+        element.style.display = "none";
     }
 }
 
-async function resetContentFocus() {
-    show()
-    await initializeContentFocus();
+function show() {
+    console.debug("[Content Focus] Show elements again.");
+    document.body.dataset.contentFocusState = "";
+    document.querySelectorAll('[data-content-focus-touched="true"]').forEach(e => e.style.display = "revert");
+}
+
+function toggle() {
+    const isHidden = document.body.dataset.contentFocusState == "hidden";
+    (isHidden ? show : hide)();
 }
 
 initializeContentFocus();

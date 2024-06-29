@@ -8,24 +8,29 @@ Don't block unnecessary items, delete everything but the focus.
 == Concept
 
 Extension applies to all websites.
-Extension allows configuration of focus elements and exceptions (per website).
-Extension prunes all elements but the focus elements when in focus mode.
-Extension allows toggle focus mode.
-Extension prevents impediments on focus elements (e.g. context menu blockers).
-Extension auto-clicks/declines popup elements (e.g. cookies, login requests).
+Extension allows configuration of focus elements (per website).
+Extension hides all elements but the focus elements when in focus mode.
+Extension allows to toggle focus mode.
+Extension can prevent event-based impediments on focus elements (e.g. context menu blockers).
+Extension can auto-click elements (e.g. decline cookies, close login requests).
 
 == Realization
 
 When applicable website loads, the content script is executed.
-The content script uses an observer to wait for the focus element to load.
-Once the focus element is present, the focus mode is engaged by (deleting/hiding?) all unrelated HTML nodes.
-Unrelated HTML nodes are all nodes that do not lie on the path from body to focus element.
-Additionally, event handling is overriden for all remaining nodes (e.g. oncontextmenu, onplay).
+The content script uses DOM observers to wait for the focus elements to load.
+Once the focus elements are present, focus mode is engaged by hiding all unrelated HTML nodes.
+Unrelated HTML elements are all elements that do not lie on the paths from body to focus elements.
+
+Additionally, event listeners can be overriden for elements (e.g. oncontextmenu, onplay).
+Elements can also be automatically clicked as soon as they pop up.
 
 The focus mode can be toggled via the extension popup.
 The extension popup registers a click on the toggle button.
 The extension popup then sends a event to the content script.
-The content-script (reloads/unhides?) all unrelated HTML nodes.
+The content-script reloads all unrelated HTML elements.
+
+In the options menu focus elements can be configured per website.
+The configuration is done with CSS selectors.
 
 === Assets
 

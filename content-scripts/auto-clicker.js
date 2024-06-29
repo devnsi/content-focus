@@ -5,7 +5,7 @@ async function initializeAutoClicker() {
 }
 
 async function autoClick(elements) {
-    console.log("[Content Focus]", "Click on elements", elements);
+    console.debug("[Content Focus]", "Click on", elements);
     elements.forEach(e => e.click());
 }
 

@@ -19,8 +19,8 @@
       "js": [
         "content-scripts/common.js",
         "content-scripts/auto-clicker.js",
-        "content-scripts/context-menu.js",
         "content-scripts/content-focus.js",
+        "content-scripts/event-cleanser.js",
         "content-scripts/message-handler.js"
       ],
       "all_frames": true
