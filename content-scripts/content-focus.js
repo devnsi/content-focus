@@ -51,12 +51,14 @@ function show() {
 }
 
 function showElement(element) {
-    element.style.display = "revert";
+    if (element.dataset.contentFocusTouched == "true") {
+        element.style.display = "revert";
+    }
 }
 
 function toggle() {
     const isHidden = document.body.dataset.contentFocusState == "hidden";
-    (isHidden ? show : () => { show(); hide() })();
+    (isHidden ? show : hide)();
 }
 
 initializeContentFocus();

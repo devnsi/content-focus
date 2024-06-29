@@ -86,6 +86,6 @@ browser.storage.onChanged.addListener((changes, _) => {
         opts.reset()
         initializeContentFocus();
         initializeAutoClicker();
-        initializeEventCleanser();
+        initializeEventModifications();
     }
 });
