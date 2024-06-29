@@ -1,0 +1,19 @@
+{
+  "name": "content-focus",
+  "version": "0.0.1",
+  "description": "Focus some element on a website.",
+  "scripts": {
+    "start": "env-cmd --expand-envs web-ext run --start-url $TESTSITE --firefox-profile=default",
+    "lint": "web-ext lint",
+    "build": "web-ext build --overwrite-dest --ignore-files=test package*.json README.adoc",
+    "bump": "npm version patch --message \"Update version.\"",
+    "preversion": "sh -c 'sed -i \"s,\\\"version\\\".*,\\\"version\\\": \\\"${npm_new_version}\\\"\\,,\" manifest.json'",
+    "version": "git add manifest.json",
+    "postversion": "npm run sign",
+    "sign": "env-cmd --expand-envs web-ext sign --api-key=$ADDONS_MOZILLA_APIKEY --api-secret=$ADDONS_MOZILLA_SECRET --use-submission-api --channel=unlisted"
+  },
+  "devDependencies": {
+    "env-cmd": "^10.1.0",
+    "web-ext": "^8.1.0"
+  }
+}

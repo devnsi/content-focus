@@ -1,0 +1,42 @@
+{
+  "manifest_version": 3,
+  "name": "Content Focus",
+  "version": "0.0.1",
+  "description": "Focus some element on a website.",
+  "icons": {
+    "32": "icons/icons8-focus-32.png",
+    "64": "icons/icons8-focus-64.png"
+  },
+  "permissions": [
+    "storage",
+    "tabs"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.stackoverflow.com/*"
+      ],
+      "js": [
+        "content-scripts/common.js",
+        "content-scripts/content-focus.js"
+      ]
+    }
+  ],
+  "options_ui": {
+    "page": "options-page/options.html",
+    "open_in_tab": true
+  },
+  "action": {
+    "default_icon": {
+      "32": "icons/icons8-focus-32.png",
+      "64": "icons/icons8-focus-64.png"
+    },
+    "default_title": "Content Focus",
+    "default_popup": "popup/popup.html"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{73268fdd-87de-442c-9cba-0947b2b3b1fc}"
+    }
+  }
+}

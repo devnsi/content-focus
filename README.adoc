@@ -1,0 +1,32 @@
+= Content Focus
+
+// tag::summary[]
+Browser extension pruning websites to focus on the content.
+Don't block unnecessary items, delete everything but the focus.
+// end::summary[]
+
+== Concept
+
+Extension applies to all websites.
+Extension allows configuration of focus elements and exceptions (per website).
+Extension prunes all elements but the focus elements when in focus mode.
+Extension allows toggle focus mode.
+Extension prevents impediments on focus elements (e.g. context menu blockers).
+Extension auto-clicks/declines popup elements (e.g. cookies, login requests).
+
+== Realization
+
+When applicable website loads, the content script is executed.
+The content script uses an observer to wait for the focus element to load.
+Once the focus element is present, the focus mode is engaged by (deleting/hiding?) all unrelated HTML nodes.
+Unrelated HTML nodes are all nodes that do not lie on the path from body to focus element.
+Additionally, event handling is overriden for all remaining nodes (e.g. oncontextmenu, onplay).
+
+The focus mode can be toggled via the extension popup.
+The extension popup registers a click on the toggle button.
+The extension popup then sends a event to the content script.
+The content-script (reloads/unhides?) all unrelated HTML nodes.
+
+=== Assets
+
+Icons by link:https://icons8.com[icons8.com].
