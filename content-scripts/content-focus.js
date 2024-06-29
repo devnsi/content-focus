@@ -13,7 +13,7 @@ function hideElements(elements) {
     console.debug("[Content Focus] Hide elements besides", elements);
     document.body.dataset.contentFocusState = "hidden";
     const keep = elements.map(e => determinePath(e)).flat();
-    keep.forEach(e => e.style.display = "revert");
+    keep.forEach(showElement);
     elements.forEach(e => hideAlongPath(e, keep));
 }
 
@@ -49,12 +49,16 @@ function hideElement(element) {
 function show() {
     console.debug("[Content Focus] Show elements again.");
     document.body.dataset.contentFocusState = "";
-    document.querySelectorAll('[data-content-focus-touched="true"]').forEach(e => e.style.display = "revert");
+    document.querySelectorAll('[data-content-focus-touched="true"]').forEach(showElement);
+}
+
+function showElement(element) {
+    element.style.display = "revert";
 }
 
 function toggle() {
     const isHidden = document.body.dataset.contentFocusState == "hidden";
-    (isHidden ? show : hide)();
+    (isHidden ? show : () => { show(); hide() })();
 }
 
 initializeContentFocus();
