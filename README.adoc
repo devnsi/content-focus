@@ -21,7 +21,7 @@ The content script uses DOM observers to wait for the focus elements to load.
 Once the focus elements are present, focus mode is engaged by hiding all unrelated HTML nodes.
 Unrelated HTML elements are all elements that do not lie on the paths from body to focus elements.
 
-Additionally, event listeners can be overriden for elements (e.g. oncontextmenu, onplay).
+Additionally, event listeners can be overriden for elements (e.g. oncontextmenu).
 Elements can also be automatically clicked as soon as they pop up.
 
 The focus mode can be toggled via the extension popup.
@@ -34,4 +34,6 @@ The configuration is done with CSS selectors.
 
 === Assets
 
+Sources on link:https://github.com/devnsi/content-focus[github.com]
+Styles by link:https://simplecss.org[simplecss.org]
 Icons by link:https://icons8.com[icons8.com].

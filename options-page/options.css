@@ -9,6 +9,26 @@
     --text-light: #5b5b66;
 }
 
+body {
+    grid-template-columns: 1fr min(60em, 90%) 1fr
+}
+
+textarea {
+    resize: vertical;
+}
+
+div#controls {
+    clear: both;
+
+    & div.left {
+        float: left;
+    }
+
+    & div.right {
+        float: right
+    }
+}
+
 button.secondary {
     background-color: #cfcfd8;
     border-color: #f9f9fb;

@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Content Focus",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Focus some element on a website.",
   "icons": {
     "32": "icons/icons8-focus-32.png",
@@ -70,6 +70,15 @@
       }
     }
   },
+  "web_accessible_resources": [
+    {
+      "matches": [],
+      "resources": [
+        "web-accessible-resources/riple.css",
+        "web-accessible-resources/simple.min.css"
+      ]
+    }
+  ],
   "browser_specific_settings": {
     "gecko": {
       "id": "{73268fdd-87de-442c-9cba-0947b2b3b1fc}"

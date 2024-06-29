@@ -6,12 +6,17 @@ const opts = {
     focusElements: async () => opts.focusElementsStored ??= whenReady((await opts.current())?.focus ?? []),
     clickElements: async () => opts.clickSelectorsStored ??= whenReady((await opts.current())?.click ?? []),
     eventElements: async () => opts.eventSelectorsStored ??= whenReady((await opts.current())?.event ?? []),
-    current: async () => {
+    current: async () => { // options for the current website.
         return opts.currentStored ??= new Promise(async resolve => {
             const current = await opts.self();
             const matches = Object.keys(current).filter(matchesUrl)
-            console.debug("[Content Focus] Matching option keys", matches)
-            resolve(matches.length ? current[matches[0]] : {})
+            const flattend = {
+                focus: matches.map(match => current[match]).map(v => v?.focus).filter(v => v).flat(),
+                click: matches.map(match => current[match]).map(v => v?.click).filter(v => v).flat(),
+                event: matches.map(match => current[match]).map(v => v?.event).filter(v => v).flat(),
+            }
+            console.debug("[Content Focus] Options applicable from", matches, "are", flattend);
+            resolve(flattend);
         });
     },
     reset: () => {
@@ -82,7 +87,7 @@ browser.storage.onChanged.addListener((changes, _) => {
     const currentChanged = changeMatching.length > 0
     const relevantChanged = currentChanged && changes[changeMatching[0]].newValue
     if (relevantChanged) {
-        console.debug("[Content Focus] Reset!", changes)
+        console.debug("[Content Focus] Reset!")
         opts.reset()
         initializeContentFocus();
         initializeAutoClicker();

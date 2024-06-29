@@ -1,17 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <title>Content Focus Popup</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+    <link rel="stylesheet" href="../web-accessible-resources/simple.min.css">
+    <link rel="stylesheet" href="../web-accessible-resources/riple.css">
     <link rel="stylesheet" href="popup.css">
 </head>
 
 <body>
     <p id="headline">Content Focus</p>
-    <button id="toggle" aria-label="toggle focus mode"
+    <button id="toggle" class="ripple" aria-label="toggle focus mode"
         title="Toggle the focus mode of the extension, i.e. show or hide all elements not set as focus.">Toggle</button>
-    <button id="settings" class="secondary" aria-label="open settings"
+    <button id="settings" class="secondary ripple" aria-label="open settings"
         title="Open the settings for this extension.">Settings</button>
     <script src="popup.js"></script>
 </body>
