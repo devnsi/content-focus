@@ -1,6 +1,6 @@
 {
   "name": "content-focus",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Focus some element on a website.",
   "license": "MIT",
   "scripts": {
