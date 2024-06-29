@@ -1,5 +1,5 @@
 /** Handle messages from the tabs. */
-browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
+browser.runtime.onMessage.addListener((message) => {
     console.debug("[Content Focus]", "Received message in background", message);
     switch (message.action) {
         case "settings":
@@ -25,8 +25,9 @@ browser.commands.onCommand.addListener((command) => {
     }
 });
 
-function sendMessageToTab(action) {
+async function sendMessageToTab(action) {
     const message = { action: action };
     const queryInfo = { active: true, currentWindow: true };
-    browser.tabs.query(queryInfo, (tabs) => browser.tabs.sendMessage(tabs[0].id, message));
+    const tabs = await browser.tabs.query(queryInfo);
+    if (tabs.length) browser.tabs.sendMessage(tabs[0].id, message);
 }

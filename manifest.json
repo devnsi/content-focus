@@ -2,7 +2,8 @@
   "manifest_version": 3,
   "name": "Content Focus",
   "version": "0.0.3",
-  "description": "Focus some element on a website.",
+  "description": "Focus some elements on a website.",
+  "homepage_url": "https://github.com/devnsi/content-focus",
   "icons": {
     "32": "icons/icons8-focus-32.png",
     "64": "icons/icons8-focus-64.png"
@@ -17,19 +18,22 @@
         "<all_urls>"
       ],
       "js": [
+        "web-accessible-resources/browser-polyfill.min.js",
         "content-scripts/common.js",
         "content-scripts/auto-clicker.js",
         "content-scripts/content-focus.js",
         "content-scripts/enable-context.js",
-        "content-scripts/message-handler.js"
+        "content-scripts/message-handler.js",
+        "content-scripts/storage-handler.js"
       ],
       "all_frames": true
     }
   ],
   "background": {
+    "service_worker": "background-page/background-worker.js",
     "scripts": [
-      "background-page/command-handler.js",
-      "background-page/config.js"
+      "background-page/config.js",
+      "background-page/event-handler.js"
     ]
   },
   "options_ui": {

@@ -12,12 +12,13 @@ document
         sendMessageToBackground("settings")
     });
 
-
-function sendMessageToTab(action) {
-    const message = { action: action }
-    const queryInfo = { active: true, currentWindow: true }
-    browser.tabs.query(queryInfo, (tabs) => browser.tabs.sendMessage(tabs[0].id, message));
+async function sendMessageToTab(action) {
+    const message = { action: action };
+    const queryInfo = { active: true, currentWindow: true };
+    const tabs = await browser.tabs.query(queryInfo);
+    if (tabs.length) browser.tabs.sendMessage(tabs[0].id, message);
 }
+
 
 function sendMessageToBackground(action) {
     const message = { action: action }

@@ -1,3 +1,5 @@
+initializeContentFocus();
+
 function initializeContentFocus() {
     hide()
 }
@@ -60,5 +62,3 @@ function toggle() {
     const isHidden = document.body.dataset.contentFocusState == "hidden";
     (isHidden ? show : hide)();
 }
-
-initializeContentFocus();

@@ -1,3 +1,5 @@
+initializeEventModifications();
+
 async function initializeEventModifications() {
     const elements = await opts.eventElements()
     enableEventModifications(elements)
@@ -13,5 +15,3 @@ function enableEventModifications(elements) {
 function stop(event) {
     return event.stopImmediatePropagation()
 }
-
-initializeEventModifications();

@@ -1,5 +1,3 @@
-console.debug("[Content Focus] Running content script in", document.URL);
-
 /** Options caching resolved elements. */
 const opts = {
     self: async () => (await browser.storage.local.get()),
@@ -15,7 +13,11 @@ const opts = {
                 click: matches.map(match => current[match]).map(v => v?.click).filter(v => v).flat(),
                 event: matches.map(match => current[match]).map(v => v?.event).filter(v => v).flat(),
             }
-            console.debug("[Content Focus] Options applicable from", matches, "are", flattend);
+            if (matches.length) console.debug("[Content Focus] Options applicable:", {
+                target: shortenUrl(document.URL),
+                matches: matches,
+                config: flattend
+            })
             resolve(flattend);
         });
     },
@@ -28,7 +30,11 @@ const opts = {
 };
 
 function matchesUrl(key) {
-    return document.URL.split("?")[0].match(key) // ignore query parameters to allow simpler url specs.
+    return shortenUrl(document.URL).match(key) // ignore query parameters to allow simpler url specs.
+}
+
+function shortenUrl(url) {
+    return url.split("?")[0]
 }
 
 const readyRequests = {}
@@ -75,22 +81,3 @@ async function whenReady(selectors) {
         return allPresent
     }
 }
-
-(async () => {
-    const current = await opts.self()
-    console.debug("[Content Focus] Options:", current)
-})();
-
-browser.storage.onChanged.addListener((changes, _) => {
-    const changeWebsites = Object.keys(changes)
-    const changeMatching = changeWebsites.filter(matchesUrl);
-    const currentChanged = changeMatching.length > 0
-    const relevantChanged = currentChanged && changes[changeMatching[0]].newValue
-    if (relevantChanged) {
-        console.debug("[Content Focus] Reset!")
-        opts.reset()
-        initializeContentFocus();
-        initializeAutoClicker();
-        initializeEventModifications();
-    }
-});
