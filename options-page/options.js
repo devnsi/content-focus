@@ -4,6 +4,11 @@ document.querySelector("form").addEventListener("submit", saveOptions);
 
 async function displayOptions() {
     const options = await browser.storage.local.get();
+    display(options);
+    resetChanged();
+}
+
+async function display(options) {
     console.debug("[Content Focus] Display options.", options);
     document.querySelector("#focus").value = text(options, "focus");
     document.querySelector("#click").value = text(options, "click");
@@ -26,6 +31,7 @@ function textConfig(k, v, field) {
 
 async function saveOptions(e) {
     console.debug("[Content Focus] Save options.");
+    resetChanged();
     e.preventDefault();
     const config = parseConfig();
     await browser.storage.local.clear();

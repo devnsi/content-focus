@@ -18,52 +18,67 @@
   </header>
 
   <main>
-    <h2>Configuration</h2>
-    <p>
-      Websites are made of many different elements (texts, headlines, blocks, ...).
-      These elements are typically deeply nested.
-      Their exact composition can be inspected in the website source code.
-    </p>
-    <p>
-      Sometimes elements are marked with unique identifiers.
-      Often times identifying the exact element can be tricky.
-      Specify them using <a href="https://en.wikipedia.org/wiki/CSS#Selector" tabindex="-1">CSS selectors</a>.
-    </p>
-    <blockquote>
-      <p>CSS selectors are like the universe's secret language, hidden in plain sight for those who dare to unravel its
-        mysteries.</p>
-      <p><cite>- Albert Einstein (if he were a web developer)</cite></p>
-    </blockquote>
-    <p>
-      Each line represents the configuration for a website.
-      Specify the website using its' URL (e.g. https://www.mozilla.org).
-      <abbr title="Regular Expression">RegEx</abbr> can be used match the URL.
-      Seperate the URL with a semi-colon <mark>;</mark> from the following selectors.
-      Seperate the selectors likewise with a semi-colon <mark>;</mark>.
-    </p>
-    <p>
-      Pattern: <code>url;selector1;selector2;...</code><br />
-      Example: <code>https://(.*)\.mozilla\.org;main#content;#nav-footer</code>
-    </p>
-    <form>
-      <div>
+    <section>
+      <h2>Readme</h2>
+      <p>
+        Websites are made of many different elements (texts, headlines, blocks, ...).
+        These elements are typically deeply nested.
+        Their exact composition can be inspected in the website source code.
+      </p>
+      <p>
+        Sometimes elements are marked with unique identifiers.
+        Often times identifying the exact element can be tricky.
+        They can be specified by <a href="https://en.wikipedia.org/wiki/CSS#Selector" tabindex="-1">CSS selectors</a>.
+      </p>
+      <blockquote>
+        <p>CSS selectors are like the universe's secret language, hidden in plain sight for those who dare to unravel
+          its
+          mysteries.</p>
+        <p><cite>- Albert Einstein (if he were a web developer)</cite></p>
+      </blockquote>
+      <p>
+        Each line represents the configuration for a website.
+        Specify the website using its' URL (e.g. https://www.mozilla.org).
+        <abbr title="Regular Expression">RegEx</abbr> can be used match the URL.
+        Seperate the URL with a semi-colon <mark>;</mark> from the following selectors.
+        Seperate the selectors likewise with a semi-colon <mark>;</mark>.
+      </p>
+    </section>
+    <section>
+      <h2>Configuration</h2>
+      <p>
+        Pattern: <code>url-regex;selector1;selector2;...</code><br />
+        Example: <code>https://(.*)\.mozilla\.org;main#content;#nav-footer</code>
+      </p>
+      <form>
         <div>
-          <label for="focus">Focus</label>
-          <textarea id="focus" rows="3" tabindex="1" placeholder="Show only these elements..."></textarea>
-        </div>
-        <div>
-          <label for="click">Click</label>
-          <textarea id="click" rows="3" tabindex="2" placeholder="Click automatically on these elements..."></textarea>
-        </div>
-        <div>
-          <label for="event">Context</label>
-          <textarea id="event" rows="3" tabindex="3" placeholder="Enable context menu on these elements..."></textarea>
-        </div>
-        <div>
-          <button type="submit" class="ripple" tabindex="4">Save</button>
-          <button type="reset" class="ripple secondary" tabindex="5">Reset</button>
-        </div>
-    </form>
+          <div>
+            <label for="focus">Focus</label>
+            <textarea id="focus" rows="4" tabindex="1" placeholder="Show only these elements..."></textarea>
+          </div>
+          <div>
+            <label for="click">Click</label>
+            <textarea id="click" rows="4" tabindex="2"
+              placeholder="Click automatically on these elements..."></textarea>
+          </div>
+          <div>
+            <label for="event">Context</label>
+            <textarea id="event" rows="4" tabindex="3"
+              placeholder="Enable context menu on these elements..."></textarea>
+          </div>
+          <div>
+            <div style="float: left;">
+              <button type="submit" class="ripple" tabindex="4">Save</button>
+              <button type="reset" class="ripple secondary" tabindex="5">Reset</button>
+            </div>
+            <div style="float: right;">
+              <button type="button" class="ripple secondary" tabindex="7" id="import">Import</button>
+              <button type="button" class="ripple secondary" tabindex="6" id="export">Export</button>
+            </div>
+            <div style="clear: both;"></div>
+          </div>
+      </form>
+    </section>
   </main>
 
   <footer>
@@ -71,6 +86,8 @@
     <p>Icons by <a href="https://icons8.com" tabindex="-1">icons8.com</a>.</p>
   </footer>
 
+  <script src="change.js"></script>
+  <script src="importexport.js"></script>
   <script src="options.js"></script>
 </body>
 
