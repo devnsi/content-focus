@@ -1,18 +1,12 @@
 async function initializeAutoClicker() {
-    const click = await opts.click()
-    await whenReady(click)
-    await autoClick(click)
+    const elements = await opts.clickElements()
+    await whenReady(elements)
+    await autoClick(elements)
 }
 
-async function autoClick(click) {
-    console.log("[Content Focus]", "Click on elements", click);
-    click
-        .map(e => document.querySelector(e))
-        .filter(e => e)
-        .forEach(e => {
-            console.log("[Content Focus]", "Click on", e);
-            e.click()
-        });
+async function autoClick(elements) {
+    console.log("[Content Focus]", "Click on elements", elements);
+    elements.forEach(e => e.click());
 }
 
 initializeAutoClicker();

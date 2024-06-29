@@ -1,32 +1,43 @@
 async function initializeContentFocus() {
-    const reqs = await opts.matchers()
-    await whenReady(reqs)
-    await executeAction(hide)
+    const elements = await opts.focusElements();
+    await whenReady(elements)
+    await executeActionOnElements(elements, hide)
 }
 
 async function executeAction(action) {
-    const element = await match()
-    const unless = await opts.unless()
-    walkToRoot(element, unless, action);
+    const elements = await opts.focusElements()
+    walkToRoot(elements, action);
 }
 
-function walkToRoot(element, unless, actionOnSiblings) {
-    let currentElement = element
+async function executeActionOnElements(elements, action) {
+    walkToRoot(elements, action);
+}
+
+function walkToRoot(elements, actionOnSiblings) {
+    const keepers = elements.map(e => determinePath(e)).flat();
+    elements.forEach(e => actionAlongPath(e, keepers, actionOnSiblings));
+}
+
+function determinePath(element) {
+    const path = [element];
+    let currentElement = element;
+    while (currentElement !== document.body) {
+        currentElement = currentElement.parentNode;
+        path.push(currentElement);
+    }
+    return path;
+}
+
+function actionAlongPath(element, unless, actionOnSiblings) {
+    let currentElement = element;
     while (currentElement !== document.body) {
         const parent = currentElement.parentNode;
-        const children = [...parent.children].filter(e => !unless.some(u => e.matches(u)));
+        const children = [...parent.children].filter(e => !unless.find(u => u == e));
         for (const element of children) {
-            if (currentElement !== element) {
-                actionOnSiblings(parent, element);
-            }
+            actionOnSiblings(parent, element);
         }
         currentElement = parent;
     }
-    return currentElement;
-}
-
-function remove(parent, element) {
-    parent.removeChild(element)
 }
 
 function hide(_, element) {
@@ -42,7 +53,7 @@ function show(_, element) {
     }
 }
 
-function toggle(_, element) {
+function toggle() {
     const isHidden = document.body.dataset.contentFocusState == "hidden"
     return isHidden ? show : hide
 }

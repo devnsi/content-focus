@@ -1,24 +1,26 @@
 console.log("[Content Focus] Running background script.")
-browser.runtime.onInstalled.addListener(initStore);
+browser.runtime.onInstalled.addListener(initStorage);
 
-function initStore(details) {
+function initStorage(details) {
     console.log('[Content Focus] Initialize store.', details);
     browser.storage.local.get().then((stored) => {
         if (stored && Object.keys(stored).length && !details.temporary) {
-            console.log('[Content Focus] Use existing options', stored);
+            console.log('[Content Focus] Use existing configuration', stored);
         } else {
-            const opts = defaultOptions();
-            console.log('[Content Focus] Initialize options', opts);
-            browser.storage.local.set(opts);
+            const config = defaultConfiguration();
+            console.log('[Content Focus] Initialize configuration', config);
+            browser.storage.local.clear();
+            browser.storage.local.set(config);
         }
     })
 }
 
-function defaultOptions() {
+function defaultConfiguration() {
     return {
-        matchers: ["#question"],
-        focus: '#question',
-        unless: ['#answers'],
-        click: ['#close']
+        ".*stackoverflow.*": {
+            focus: ["#question", "#answers"],
+            click: [],
+            context: ['#close']
+        }
     }
 }
