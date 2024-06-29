@@ -1,46 +1,50 @@
-console.log("[Focus] Running content script.")
-
-const matchers = [
-    "question",
-]
-
-const unless = [
-
-]
-
-whenReady(matchers)
-    .then(() => browser.storage.local.get('focus'))
-    .then((res) => executeAction(res.focus || '#question'));
-
-function executeAction(focus) {
-    console.log("[Content Focus]", "Selector", focus);
-    const element = document.querySelector(focus);
-    console.log("[Content Focus]", "Execute action on", element);
-    enableContextMenu(element);
-    pruneBesides(element)
+async function initializeContentFocus() {
+    const reqs = await opts.matchers()
+    await whenReady(reqs)
+    await executeAction(hide)
 }
 
-function enableContextMenu(element) {
-    console.log("[Content Focus]", "Enable ContextMenu on", element);
-    element.oncontextmenu = (event) => event.stopImmediatePropagation(); // stop other events from preventing context menu.
-    element.onplay = (event) => event.stopImmediatePropagation(); // stop events reacting to play (i.e. ad display).
+async function executeAction(action) {
+    const element = await match()
+    const unless = await opts.unless()
+    walkToRoot(element, unless, action);
 }
 
-function pruneBesides(element) {
-    console.log("[Content Focus]", "Prune besides", element);
+function walkToRoot(element, unless, actionOnSiblings) {
     let currentElement = element
     while (currentElement !== document.body) {
-        const parent = currentElement.parentNode
-        const children = [...parent.children].filter(e => !unless.some(u => e.matches(u)))
+        const parent = currentElement.parentNode;
+        const children = [...parent.children].filter(e => !unless.some(u => e.matches(u)));
         for (const element of children) {
             if (currentElement !== element) {
-                parent.removeChild(element)
+                actionOnSiblings(parent, element);
             }
         }
-        currentElement = parent
+        currentElement = parent;
+    }
+    return currentElement;
+}
+
+function remove(parent, element) {
+    parent.removeChild(element)
+}
+
+function hide(_, element) {
+    document.body.dataset.contentFocusState = "hidden"
+    element.dataset.contentFocusTouched = true;
+    element.style.display = "none";
+}
+
+function show(_, element) {
+    document.body.dataset.contentFocusState = ""
+    if (element.dataset.contentFocusTouched) {
+        element.style.display = "revert";
     }
 }
 
-browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    console.log("[Content Focus]", "Received message", message);
-});
+function toggle(_, element) {
+    const isHidden = document.body.dataset.contentFocusState == "hidden"
+    return isHidden ? show : hide
+}
+
+initializeContentFocus();

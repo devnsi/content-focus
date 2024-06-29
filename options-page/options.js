@@ -4,7 +4,7 @@ document.querySelector("form").addEventListener("submit", saveOptions);
 async function restoreOptions() {
     console.log("[Content Focus] Restore options.");
     let res = await browser.storage.local.get('focus');
-    document.querySelector("#focus").value = res.focus || '#question';
+    document.querySelector("#focus").value = res.focus || '';
 }
 
 async function saveOptions(e) {

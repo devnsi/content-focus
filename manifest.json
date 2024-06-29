@@ -14,14 +14,24 @@
   "content_scripts": [
     {
       "matches": [
-        "*://*.stackoverflow.com/*"
+        "<all_urls>"
       ],
       "js": [
         "content-scripts/common.js",
-        "content-scripts/content-focus.js"
-      ]
+        "content-scripts/auto-clicker.js",
+        "content-scripts/context-menu.js",
+        "content-scripts/content-focus.js",
+        "content-scripts/message-handler.js"
+      ],
+      "all_frames": true
     }
   ],
+  "background": {
+    "scripts": [
+      "background-page/command-handler.js",
+      "background-page/config.js"
+    ]
+  },
   "options_ui": {
     "page": "options-page/options.html",
     "open_in_tab": true
@@ -33,6 +43,14 @@
     },
     "default_title": "Content Focus",
     "default_popup": "popup/popup.html"
+  },
+  "commands": {
+    "toggle": {
+      "suggested_key": {
+        "default": "Ctrl+Alt+T"
+      },
+      "description": "Toggle focus"
+    }
   },
   "browser_specific_settings": {
     "gecko": {

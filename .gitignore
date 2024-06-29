@@ -1,5 +1,6 @@
 .env
 .idea
+.trash
 .vscode
 node_modules
 web-ext-artifacts
