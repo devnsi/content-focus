@@ -1,7 +1,8 @@
 initializeContentFocus();
 
 function initializeContentFocus() {
-    hide()
+    show();
+    hide();
 }
 
 async function hide() {
@@ -47,7 +48,7 @@ function hideElement(element) {
 }
 
 function show() {
-    console.debug("[Content Focus] Show elements again.");
+    console.debug("[Content Focus] Show all elements.");
     document.body.dataset.contentFocusState = "";
     document.querySelectorAll('[data-content-focus-touched="true"]').forEach(showElement);
 }
