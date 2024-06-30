@@ -78,6 +78,7 @@
     {
       "matches": [],
       "resources": [
+        "web_accessible_resources/browser-polyfill.min.js",
         "web-accessible-resources/riple.css",
         "web-accessible-resources/simple.min.css"
       ]
@@ -85,7 +86,8 @@
   ],
   "browser_specific_settings": {
     "gecko": {
-      "id": "{73268fdd-87de-442c-9cba-0947b2b3b1fc}"
+      "id": "{73268fdd-87de-442c-9cba-0947b2b3b1fc}",
+      "strict_min_version": "109.0"
     }
   }
 }

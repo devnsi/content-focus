@@ -34,6 +34,6 @@ The configuration is done with CSS selectors.
 
 === Assets
 
-Sources on link:https://github.com/devnsi/content-focus[github.com]
-Styles by link:https://simplecss.org[simplecss.org]
+Sources on link:https://github.com/devnsi/content-focus[github.com]. +
+Styles by link:https://simplecss.org[simplecss.org]. +
 Icons by link:https://icons8.com[icons8.com].
